@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
-GAME_OPTIONS = "\n\r\x1b[33mAvailable options\n\rYour guess or one of command hint | exit\x1b[0m\n\r"
+GAME_OPTIONS = "\n\r\x1b[1;33mEnter your guess or\x1b[0m\n\r\x1b[33mAvailable options\n\rhint | exit\x1b[0m\n\r"
 WRONG_COMMAND = "\x1b[1;31mYou entered the wrong command.\x1b[0m\n\r\x1b[31mSelect one of the listed commands.\x1b[0m"
-
+WIN = "\n\rYou won!!!"
+LOSS = "\n\rYou lose."
 
 module Logic
   include Validation
@@ -32,22 +33,19 @@ module Logic
 #puts "---- #{@level_hints}"
       @hints -= 1
     else
-      puts("\x1b[31mYou do not have hints\x1b[0m")
+      puts "\x1b[31mYou do not have hints\x1b[0m"
     end
     options_game
   end
 
   def guess(num)
-    if @attempts > 0
-      puts @secret_code
+      print @secret_code
 #      puts "\x1b[32mYour hints - #{@level_hints}\x1b[0m"
-      @attempts -= 1
-    elsif @hints > 0
-      hint
-    else
-      puts("You do not have attempts and hints")
-      difficulty_choice
-    end
+      @attempts -= 1 if @attempts > 0
+     
+      puts("\n\rYou do not have attempts")
+      puts LOSS
+      difficulty_choice if @attempts <= 0
 
 #    @attempts > 0 ? @attempts -= 1 : puts("You do not have attempts")
     puts("#{num}")
@@ -75,5 +73,9 @@ module Logic
 
   def guess_valid(num)
     validate_number(num: num, min_value: 1, max_value: 6, length: 4)
+  end
+
+  def compare_attempt
+    
   end
 end
