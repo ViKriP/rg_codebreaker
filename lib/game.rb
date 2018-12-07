@@ -6,7 +6,7 @@ WRONG_COMMAND = "\x1b[1;31mYou entered the wrong command.\x1b[0m\n\r\x1b[31mSele
 module Game
 #  include Validation
   include Logic
-  attr_accessor :secret_code, :difficulty
+  attr_accessor :secret_code, :difficulty, :tmp_secret_code
 #  class Console
 
   def generate_code
