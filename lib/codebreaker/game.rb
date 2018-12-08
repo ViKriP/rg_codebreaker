@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 GAME_OPTIONS = "\n\r\x1b[1;33mEnter your guess or\x1b[0m\n\r\x1b[33mAvailable options\n\rhint | exit\x1b[0m\n\r"
-WRONG_COMMAND = "\x1b[1;31mYou entered the wrong command.\x1b[0m\n\r\x1b[31mSelect one of the listed commands.\x1b[0m"
+#WRONG_COMMAND = "\x1b[1;31mYou entered the wrong command.\x1b[0m\n\r\x1b[31mSelect one of the listed commands.\x1b[0m"
 WIN = "\n\rYou won!!!"
 LOSS = "You lose."
 
-module Logic
+module Codebreaker
+class Game
   include Validation
   attr_accessor :option_game, :attempts, :hints, :user_hints, :level_hints
 
@@ -107,4 +108,5 @@ module Logic
     end
     arrh
   end
+end
 end

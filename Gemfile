@@ -4,8 +4,9 @@ source 'https://rubygems.org'
 
 git_source(:github) { |repo_name| "https://github.com/#{repo_name}" }
 
-gem 'rubocop'
 gem 'fasterer'
-gem 'rspec'
+gem 'i18n'
 gem 'pry'
+gem 'rubocop'
+gem 'rspec'
 gem 'simplecov', require: false
