@@ -9,10 +9,6 @@ module Codebreaker
       @name = name
     end
 
-    def registration
-
-    end
-
     def valid_name?
       validate_name(@name, 3, 20)
     end

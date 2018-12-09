@@ -5,7 +5,6 @@ STATS_DB = ROOTDIR + '/lib/db/stats.yaml'
 
 require 'i18n'
 require 'yaml'
-require ROOTDIR + '/lib/codebreaker/rules'
 require ROOTDIR + '/lib/codebreaker/validation'
 require ROOTDIR + '/lib/codebreaker/player'
 require ROOTDIR + '/lib/codebreaker/game'
