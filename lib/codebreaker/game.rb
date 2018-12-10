@@ -4,13 +4,15 @@ module Codebreaker
   class Game  
     include Validation  
     attr_accessor :secret_code, :attempts, :hints, :user_hints, :level_hints,
-                  :difficulty, :attempt_result
+                  :difficulty, :attempt_result, :attempts_total, :hints_total
 
-    def initialize(difficulty, attempts, hints)
+    def initialize(difficulty)
       @secret_code = [rand(1..6), rand(1..6), rand(1..6), rand(1..6)]
-      @difficulty = difficulty
-      @attempts = attempts
-      @hints = hints
+      @difficulty = difficulty[:name]
+      @attempts = difficulty[:attempts]
+      @attempts_total = difficulty[:attempts].clone
+      @hints = difficulty[:hints]
+      @hints_total = difficulty[:hints].clone
       @level_hints = []
       @user_hints = @secret_code.clone.shuffle
     end
@@ -30,6 +32,18 @@ module Codebreaker
       @attempt_result = compare_attempt(num)
     end
     
+    def save_result_game(player_name)
+      result_game = {name: player_name, difficulty: @difficulty,
+                     attempts_total: @attempts_total,
+                     attempts_used: @attempts_total - @attempts,
+                     hints_total: @hints_total, hints_used: @hints_total - @hints}
+      Storage.new.save(result_game)
+    end
+
+    def guess_valid(num)
+      validate_number(num: num, min_value: 1, max_value: 6, length: 4)
+    end
+
     private
 
     def compare_attempt(num)

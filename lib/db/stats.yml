@@ -1,0 +1,25 @@
+---
+- :name: rrrrr
+  :difficulty: easy
+  :attempts_total: 3
+  :attempts_used: 2
+  :hints_total: 2
+  :hints_used: 0
+- :name: tttttt
+  :difficulty: easy
+  :attempts_total: 3
+  :attempts_used: 2
+  :hints_total: 2
+  :hints_used: 0
+- :name: qwert
+  :difficulty: easy
+  :attempts_total: 15
+  :attempts_used: 4
+  :hints_total: 2
+  :hints_used: 2
+- :name: sdsdd
+  :difficulty: easy
+  :attempts_total: 15
+  :attempts_used: 3
+  :hints_total: 2
+  :hints_used: 2

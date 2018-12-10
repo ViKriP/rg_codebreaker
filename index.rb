@@ -2,8 +2,4 @@
 
 require_relative 'autoloader'
 
-#game = Codebreaker.new
-
-#game.start
-
 Codebreaker::Console.new.start

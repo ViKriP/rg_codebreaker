@@ -3,16 +3,31 @@
 module Codebreaker
   class Storage
 
-    def creat
+    def save(data)
+      data_db = load
+      data_db.push(data)
+
+      File.open(STATS_DB, 'w') { |file| file.write(YAML.dump(data_db)) }
     end
 
     def load
+      File.exist?(STATS_DB) ? YAML.load_file(STATS_DB) : []
     end
   
-    def save
-    end
+    def load_stats_table
+      db = load
+      db.sort_by! { |x| [x[:attempts_total], x[:attempts_used], x[:hints_used],] }
+      headings = ['Rating']
+      rows = []
+      db.first.each_key { |key| headings << key.capitalize }
+      db.each_with_index do |record, position|
+          row = []
+          row << position + 1
+          record.each { |pair| row << pair.last }
+          rows << row
+      end
 
-    def exsist?
+      table = Terminal::Table.new :title => "Stats", headings: headings, rows: rows
     end
   end
 end
