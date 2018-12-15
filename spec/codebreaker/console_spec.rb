@@ -11,16 +11,30 @@ module Codebreaker
     end
 
     describe '#start' do
-      it 'prints welcome method' do
-        allow(subject).to receive(:gets)
-        allow(subject).to receive(:options)
-        expect { subject.start }.to output(I18n.t(:welcome)+"\n").to_stdout
+      #it 'prints welcome method' do
+      #  allow(subject).to receive(:gets)
+      #  allow(subject).to receive(:options)
+      #  expect { subject.start }.to output(I18n.t(:welcome)+"\n").to_stdout
+      #end
+      it 'create account if input is create' do
+        allow(current_subject).to receive_message_chain(:gets, :chomp) { 'create' }
+        expect(current_subject).to receive(:create)
+      end
+
+      
+      it { expect(navigator.errors).to eq([I18n.t('invalid.include_error')]) }
       end
     end
 
     describe '#options' do
       before do
         #allow(subject).to receive(:loop).and_yield
+      end
+=begin
+      it 'receives #start for same command' do
+        allow(subject).to receive(:gets).and_return(I18n.t(:command_start))
+        allow(subject).to receive(:start)
+        expect(subject.options).to eq(nil)
       end
 
       it 'receives #registration for same command' do
@@ -48,7 +62,7 @@ module Codebreaker
         allow(subject).to receive(:exit)
         expect(subject.options).to eq(nil)
       end
-=begin
+
       it 'receives #check_command if user types something else' do
         allow(subject).to receive(:gets).and_return('something')
         expect { subject.start_phase }.to output(/Unexpected/).to_stdout

@@ -10,8 +10,8 @@ module Codebreaker
     end
 
     def load_stats_table
-      db = load
-      db.sort_by! { |x| [x[:attempts_total], x[:attempts_used], x[:hints_used]] }
+      db = data_sort
+
       headings = ['Rating']
       rows = []
       db.first.each_key { |key| headings << key.capitalize }
@@ -22,10 +22,19 @@ module Codebreaker
         rows << row
       end
 
-      Terminal::Table.new :title => 'Stats', headings: headings, rows: rows
+      table_console('Stats', headings, rows)
     end
 
     private
+
+    def data_sort
+      db = load
+      db.sort_by! { |x| [x[:attempts_total], x[:attempts_used], x[:hints_used]] }
+    end
+
+    def table_console(title, headings, rows)
+      Terminal::Table.new title: title, headings: headings, rows: rows
+    end
 
     def load
       File.exist?(STATS_DB) ? YAML.load_file(STATS_DB) : []
