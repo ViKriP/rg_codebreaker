@@ -10,7 +10,7 @@ module Codebreaker
     end
 
     def valid_name?
-      validate_name(@name, 3, 20)
+      validate_string(@name, 3, 20)
     end
   end
 end

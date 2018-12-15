@@ -4,10 +4,9 @@ en:
   bye: 'Goodbye!'
   options: "\n\r\x1b[33mAvailable options\n\rstart | rules | stats || exit\x1b[0m\n\rEnter your choice."
   difficulties_menu: "\n\r\x1b[33mAvailable options\n\reasy | medium | hell || exit\x1b[0m\n\rEnter your choice."
-  game_menu: "\n\r\x1b[1;33mEnter your guess or\x1b[0m\n\r\x1b[33mAvailable options\n\rhint || exit\x1b[0m\n\r"
+  game_menu: "\n\r\x1b[1;33mEnter your guess (four-digit number) or\x1b[0m\n\r\x1b[33mAvailable options\n\rhint || exit\x1b[0m\n\r"
   wrong_command: "\x1b[1;31mYou entered the wrong command.\x1b[0m\n\r\x1b[31mSelect one of the listed commands.\x1b[0m"
   wrong_name: "\x1b[31mName not valid\x1b[0m"
-  ended_attempts: "\n\rYou do not have attempts"
   ended_hints: "\n\r\x1b[31mYou do not have hints\x1b[0m"
   secret_code: "Correct secret code - %{code}\n\r"
   player_used: "You have attempts - %{attempts} and hints - %{hints}"
@@ -15,24 +14,7 @@ en:
   do_save: 'Do you want to save the result of the game?  y/n'
   do_play: 'Do you want to play again? y/n'
   win: "\n\rYou won!!!"
-  loss: 'You lose.'
-  difficulty_1:
-    name: 'easy'
-    attempts: 15
-    hints: 2
-  difficulty_2:
-    name: 'medium'
-    attempts: 10
-    hints: 1
-  difficulty_3:
-    name: 'hell'
-    attempts: 5
-    hints: 1
-  command_start: 'start'
-  command_rules: 'rules'
-  command_stats: 'stats'
-  command_hint: 'hint'
-  command_exit: 'exit'
+  loss: "\n\rYou do not have attempts\n\rYou lose."
   rules: "Game Rules\n\r
     • Codebreaker is a logic game in which a code-breaker tries to break a secret code created by a code-maker. The codemaker, which will be played by the application we’re going to write, creates a secret code of four numbers between 1 and 6.\n\r
     • The codebreaker gets some number of chances to break the code (depends on chosen difficulty). In each turn, the codebreaker makes a guess of 4 numbers. The codemaker then marks the guess with up to 4 signs - + or - or empty spaces.\n\r

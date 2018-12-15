@@ -1,5 +1,5 @@
 # frozen_string_literal: true
 
-require_relative 'autoloader'
+require './autoloader.rb'
 
 Codebreaker::Console.new.start
