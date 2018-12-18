@@ -3,7 +3,7 @@
 require 'spec_helper'
 
 module Codebreaker
-  RSpec.describe Console do    
+  RSpec.describe Console do
     let(:console) { described_class.new }
 
     describe '#start' do
@@ -19,33 +19,33 @@ module Codebreaker
     end
 
     describe '#main_menu' do
-    before do
-      allow(console).to receive(:loop).and_yield
-    end
+      before do
+        allow(console).to receive(:loop).and_yield
+      end
 
-    it 'receives #start for same command' do
-      allow(console).to receive(:gets).and_return(Console::COMMANDS[:start])
-      allow(console).to receive(:registration)
-      expect(console.main_menu).to eq(nil)
-    end
+      it 'receives #start for same command' do
+        allow(console).to receive(:gets).and_return(Console::COMMANDS[:start])
+        allow(console).to receive(:registration)
+        expect(console.main_menu).to eq(nil)
+      end
 
-    it 'receives Storage#stats for same command' do
-      allow(console).to receive(:gets).and_return(Console::COMMANDS[:stats])
-      allow(console).to receive(:stats)
-      expect(console.main_menu).to eq(nil)
-    end
+      it 'receives Storage#stats for same command' do
+        allow(console).to receive(:gets).and_return(Console::COMMANDS[:stats])
+        allow(console).to receive(:stats)
+        expect(console.main_menu).to eq(nil)
+      end
 
-    it 'receives #rules for same command' do
-      allow(console).to receive(:gets).and_return(Console::COMMANDS[:rules])
-      allow(console).to receive(:puts)
-      allow(console).to receive(:rules)
-      expect(console.main_menu).to eq(nil)
-    end
+      it 'receives #rules for same command' do
+        allow(console).to receive(:gets).and_return(Console::COMMANDS[:rules])
+        allow(console).to receive(:puts)
+        allow(console).to receive(:rules)
+        expect(console.main_menu).to eq(nil)
+      end
 
-    it 'receives #check_command if user types something else' do
-      expect(I18n.exists?(:wrong_command, :en)).to be true
+      it 'receives #check_command if user types something else' do
+        expect(I18n.exists?(:wrong_command, :en)).to be true
+      end
     end
-end
 =begin
     describe '#main_menu' do
       #after { current_subject.main_menu }
@@ -65,7 +65,5 @@ end
   end
 =end 
  
- 
-
   end
 end

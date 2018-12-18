@@ -4,7 +4,7 @@ module Codebreaker
   class Game
     include Validation
     attr_accessor :secret_code, :attempts, :hints, :user_hints, :level_hints,
-                  :difficulty, :attempt_result, :attempts_total, :hints_total,
+                  :difficulty_name, :attempt_result, :attempts_total, :hints_total,
                   :tmp_secret_code, :guess_won, :guess_loss
 
     DIGIT_MIN_VALUE = 1
@@ -16,7 +16,7 @@ module Codebreaker
     def initialize(difficulty)
       @level_hints = []
       @tmp_secret_code = []
-      @difficulty = difficulty[:name]
+      @difficulty_name = difficulty[:level]
       @attempts = difficulty[:attempts]
       @attempts_total = difficulty[:attempts].clone
       @hints = difficulty[:hints]
@@ -46,7 +46,7 @@ module Codebreaker
     end
 
     def save_result_game(player_name)
-      result_game = { name: player_name, difficulty: @difficulty,
+      result_game = { name: player_name, difficulty: @difficulty_name,
                       attempts_total: @attempts_total,
                       attempts_used: @attempts_total - @attempts,
                       hints_total: @hints_total,

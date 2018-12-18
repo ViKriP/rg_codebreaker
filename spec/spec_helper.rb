@@ -28,26 +28,6 @@ require './lib/codebreaker/console'
 I18n.load_path << Dir[File.expand_path('lib/locales') + '/*.yml']
 I18n.default_locale = :en
 
-# See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
-
-=begin
-RSpec.configure do |config|
-  # Enable flags like --only-failures and --next-failure
-  config.example_status_persistence_file_path = '.rspec_status'
-
-  # Disable RSpec exposing methods globally on `Module` and `main`
-  config.disable_monkey_patching!
-
-  config.expect_with :rspec do |c|
-    c.syntax = :expect
-  end
-
-  #config.before(:suite) do
-  #  Codebreaker::Storage.check_path_existence
-  #end
-end
-=end
-
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
     expectations.include_chain_clauses_in_custom_matcher_descriptions = true
