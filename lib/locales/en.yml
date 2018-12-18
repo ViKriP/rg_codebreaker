@@ -2,7 +2,7 @@ en:
   welcome: "\n\r\x1b[1mWelcome to the game Codebreaker!!!\x1b[0m"
   what_name: 'What is your name?'
   bye: 'Goodbye!'
-  options: "\n\r\x1b[33mAvailable options\n\rstart | rules | stats || exit\x1b[0m\n\rEnter your choice."
+  main_menu: "\n\r\x1b[33mAvailable options\n\rstart | rules | stats || exit\x1b[0m\n\rEnter your choice."
   difficulties_menu: "\n\r\x1b[33mAvailable options\n\reasy | medium | hell || exit\x1b[0m\n\rEnter your choice."
   game_menu: "\n\r\x1b[1;33mEnter your guess (four-digit number) or\x1b[0m\n\r\x1b[33mAvailable options\n\rhint || exit\x1b[0m\n\r"
   wrong_command: "\x1b[1;31mYou entered the wrong command.\x1b[0m\n\r\x1b[31mSelect one of the listed commands.\x1b[0m"

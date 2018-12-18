@@ -12,11 +12,12 @@ module Codebreaker
 
     def start
       puts I18n.t(:welcome)
-      options
+      main_menu
+      puts I18n.t(:bye)
     end
 
-    def options
-      puts I18n.t(:options)
+    def main_menu
+      puts I18n.t(:main_menu)
       loop do
         case user_input
         when COMMANDS[:start] then registration
@@ -60,36 +61,40 @@ module Codebreaker
       puts I18n.t(:player_used, attempts: @game.attempts, hints: @game.hints)
       puts I18n.t(:player_hints, hints: @game.level_hints) if
       @game.level_hints.size.positive?
+      user_input
     end
 
     def game_state
       loop do
-        options_game
-        guess = user_input
-        if guess == COMMANDS[:hint]
-          next puts(I18n.t(:ended_hints)) unless @game.hints.positive?
+        guess = options_game
 
-          @game.hint
-        else
+        if guess != COMMANDS[:hint]
           next puts(I18n.t(:wrong_command)) unless @game.guess_valid(guess)
 
-          @game.guess(guess)
-
-          puts @game.attempt_result.join
-          win if @game.guess_won
-          loss if @game.guess_loss
+          next winning_state(guess)
         end
+        next puts(I18n.t(:ended_hints)) unless @game.hints.positive?
+
+        @game.hint
       end
+    end
+
+    def winning_state(guess)
+      @game.guess(guess)
+
+      puts @game.attempt_result.join
+      win if @game.guess_won
+      loss if @game.guess_loss
     end
 
     def rules
       puts I18n.t(:rules)
-      options
+      main_menu
     end
 
     def stats
       puts Storage.new.load_stats_table
-      options
+      main_menu
     end
 
     def exit
@@ -112,7 +117,7 @@ module Codebreaker
 
     def restart
       puts I18n.t(:do_play)
-      user_input == 'y' ? options : exit
+      user_input == 'y' ? main_menu : exit
     end
 
     def user_input

@@ -3,7 +3,4 @@
 require 'spec_helper'
 
 RSpec.describe Codebreaker do
-  xit 'has a version number' do
-    expect(Codebreaker::VERSION).not_to be nil
-  end
 end

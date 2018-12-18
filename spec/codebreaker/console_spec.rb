@@ -1,80 +1,71 @@
 # frozen_string_literal: true
 
-require 'i18n'
 require 'spec_helper'
 
 module Codebreaker
-  RSpec.describe Console do
-    before do
-      I18n.available_locales = %i[en]
-      #I18n.enforce_available_locales = false
-    end
+  RSpec.describe Console do    
+    let(:console) { described_class.new }
 
     describe '#start' do
-      #it 'prints welcome method' do
-      #  allow(subject).to receive(:gets)
-      #  allow(subject).to receive(:options)
-      #  expect { subject.start }.to output(I18n.t(:welcome)+"\n").to_stdout
-      #end
-      it 'create account if input is create' do
-        allow(current_subject).to receive_message_chain(:gets, :chomp) { 'create' }
-        expect(current_subject).to receive(:create)
-      end
-
-      
-      it { expect(navigator.errors).to eq([I18n.t('invalid.include_error')]) }
+      it 'prints welcome method' do
+        allow(console).to receive(:main_menu)
+        expect(I18n.exists?(:welcome, :en)).to be true
+        #expect(I18n.t(:welcome)).to be_nil
+        #expect(I18n.t(:welcome)).to eq("\n\r\x1b[1mWelcome to the game Codebreaker!!!\x1b[0m")
+       
+        #allow(console).to receive(:main_menu)
+        #expect { console.start }.to output(I18n.t(:welcome)+"\n"+I18n.t(:bye)+"\n").to_stdout
       end
     end
 
-    describe '#options' do
-      before do
-        #allow(subject).to receive(:loop).and_yield
-      end
+    describe '#main_menu' do
+    before do
+      allow(console).to receive(:loop).and_yield
+    end
+
+    it 'receives #start for same command' do
+      allow(console).to receive(:gets).and_return(Console::COMMANDS[:start])
+      allow(console).to receive(:registration)
+      expect(console.main_menu).to eq(nil)
+    end
+
+    it 'receives Storage#stats for same command' do
+      allow(console).to receive(:gets).and_return(Console::COMMANDS[:stats])
+      allow(console).to receive(:stats)
+      expect(console.main_menu).to eq(nil)
+    end
+
+    it 'receives #rules for same command' do
+      allow(console).to receive(:gets).and_return(Console::COMMANDS[:rules])
+      allow(console).to receive(:puts)
+      allow(console).to receive(:rules)
+      expect(console.main_menu).to eq(nil)
+    end
+
+    it 'receives #check_command if user types something else' do
+      expect(I18n.exists?(:wrong_command, :en)).to be true
+    end
+end
 =begin
-      it 'receives #start for same command' do
-        allow(subject).to receive(:gets).and_return(I18n.t(:command_start))
-        allow(subject).to receive(:start)
-        expect(subject.options).to eq(nil)
+    describe '#main_menu' do
+      #after { current_subject.main_menu }
+
+      it 'prints main_menu method' do
+        expect(I18n.exists?(:main_menu, :en)).to be true
       end
 
-      it 'receives #registration for same command' do
-        allow(subject).to receive(:gets).and_return(I18n.t(:command_start))
-        allow(subject).to receive(:start)
-        expect(subject.options).to eq(nil)
+      context 'when registration' do
+        it do
+          #allow(current_subject).to receive(:registration)
+          allow(current_subject).to receive(:user_input).and_return(Console::COMMANDS[:start])
+          expect(current_subject).to receive(:registration)
+        end
       end
 
-      it 'receives Storage#stats for same command' do
-        allow(subject).to receive(:gets).and_return(I18n.t(:command_stats))
-        allow(Storage).to receive(:stats)
-        expect(subject.options).to eq(nil)
-      end
-
-      it 'receives #rules for same command' do
-        allow(subject).to receive(:gets).and_return(I18n.t(:command_rules))
-        allow(subject).to receive(:puts)
-        allow(subject).to receive(:rules)
-        expect(subject.options).to eq(nil)
-      end
-
-      it 'receives #exit for same command' do
-        allow(subject).to receive(:gets).and_return(I18n.t(:command_exit))
-        allow(subject).to receive(:puts)
-        allow(subject).to receive(:exit)
-        expect(subject.options).to eq(nil)
-      end
-
-      it 'receives #check_command if user types something else' do
-        allow(subject).to receive(:gets).and_return('something')
-        expect { subject.start_phase }.to output(/Unexpected/).to_stdout
-      end
-
-            it 'prints options' do
-        allow(subject).to receive(:gets)
-        allow(subject).to receive(:options)
-        expect { subject.options }.to output(I18n.t(:options)+"\n").to_stdout
-      end
-=end
-    end
+  end
+=end 
+ 
+ 
 
   end
 end
