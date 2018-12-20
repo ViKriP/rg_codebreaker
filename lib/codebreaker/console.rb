@@ -13,11 +13,10 @@ module Codebreaker
     def start
       puts I18n.t(:welcome)
       main_menu
-      puts I18n.t(:bye)
     end
 
     def main_menu
-      puts I18n.t(:main_menu)
+      puts I18n.t(:main_menu_print)
       loop do
         case user_input
         when COMMANDS[:start] then registration
