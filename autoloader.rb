@@ -1,15 +1,17 @@
 # frozen_string_literal: true
 
-ROOTDIR = File.expand_path(__dir__)
-STATS_DB = ROOTDIR + '/lib/db/stats.yml'
+#module Codebreaker
+#  class Constants
+#    ROOTDIR = File.expand_path(__dir__)
+#    STATS_DB = ROOTDIR + '/lib/db/stats.yml'
+  #end
+#end
 
 require 'i18n'
 require 'yaml'
 require 'terminal-table'
 require './lib/i18n_config'
-#I18n.load_path << Dir[File.expand_path('./lib/locales') + '/*.yml']
-#I18n.default_locale = :en
-require './lib/codebreaker/difficult'
+require './lib/codebreaker/difficulty'
 require './lib/codebreaker/validation'
 require './lib/codebreaker/storage'
 require './lib/codebreaker/player'

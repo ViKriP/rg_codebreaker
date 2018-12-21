@@ -2,6 +2,8 @@
 
 module Codebreaker
   class Storage
+    STATS_DB = './lib/db/stats.yml'
+    
     def save(data)
       data_db = load
       data_db.push(data)
@@ -11,6 +13,7 @@ module Codebreaker
 
     def load_stats_table
       db = data_sort
+      return false if db.size.zero?
 
       headings = ['Rating']
       rows = []
@@ -25,6 +28,10 @@ module Codebreaker
       table_console('Stats', headings, rows)
     end
 
+    def load
+      File.exist?(STATS_DB) ? YAML.load_file(STATS_DB) : []
+    end
+
     private
 
     def data_sort
@@ -34,10 +41,6 @@ module Codebreaker
 
     def table_console(title, headings, rows)
       Terminal::Table.new title: title, headings: headings, rows: rows
-    end
-
-    def load
-      File.exist?(STATS_DB) ? YAML.load_file(STATS_DB) : []
     end
   end
 end

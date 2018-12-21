@@ -10,6 +10,8 @@ module Codebreaker
                  exit: 'exit',
                  hint: 'hint' }.freeze
 
+    PLAYER_CHOICE = 'y'
+
     def start
       puts I18n.t(:welcome)
       main_menu
@@ -48,7 +50,7 @@ module Codebreaker
     def choose_difficulty
       puts I18n.t(:difficulties_menu)
       loop do
-        finded_level = Difficult.find(user_input)
+        finded_level = Difficulty.find(user_input)
         break finded_level if finded_level
 
         puts I18n.t(:wrong_command)
@@ -92,7 +94,9 @@ module Codebreaker
     end
 
     def stats
-      puts Storage.new.load_stats_table
+      stats_db = Storage.new
+      puts I18n.t(:db_empty) unless stats_db.load_stats_table
+      puts stats_db.load_stats_table if stats_db.load_stats_table
       main_menu
     end
 
@@ -104,7 +108,7 @@ module Codebreaker
       puts I18n.t(:win)
       puts I18n.t(:secret_code, code: @game.secret_code.join)
       puts I18n.t(:do_save)
-      @game.save_result_game(@player.name) if user_input == 'y'
+      @game.save_result_game(@player.name) if user_input == PLAYER_CHOICE
       restart
     end
 
@@ -116,7 +120,7 @@ module Codebreaker
 
     def restart
       puts I18n.t(:do_play)
-      user_input == 'y' ? main_menu : exit
+      user_input == PLAYER_CHOICE ? main_menu : exit
     end
 
     def user_input
