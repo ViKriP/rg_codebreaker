@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 
+require 'spec_helper'
+
 module Codebreaker
   RSpec.describe Storage do
     let(:base) { described_class.new }
 
     before do
       stub_const('Codebreaker::Storage::STATS_DB', './lib/db/test_stats.yml')
-      File.delete(Codebreaker::Storage::STATS_DB)
     end
 
     after do
@@ -26,18 +27,15 @@ module Codebreaker
       end
     end
 
-    xdescribe '#load_stats_table' do
-      #let(:Terminal) { Terminal::Table.new }
-
+    describe '#load_stats_table' do
       it 'When loading stats table' do
-        #allow(base).to receive(:Terminal)
         result_game = { name: 'Player', difficulty: 'easy',
-                      attempts_total: 15,
-                      attempts_used: 2,
-                      hints_total: 2,
-                      hints_used: 1 }
-        base.save(result_game)        
-        #expect(base.load_stats_table).to eq('111')
+                        attempts_total: 15,
+                        attempts_used: 2,
+                        hints_total: 2,
+                        hints_used: 1 }
+        base.save(result_game)
+        base.load_stats_table
       end
     end
   end

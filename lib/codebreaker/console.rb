@@ -100,8 +100,9 @@ module Codebreaker
       main_menu
     end
 
-    def exit
-      abort I18n.t(:bye)
+    def quit
+      puts I18n.t(:bye)
+      exit
     end
 
     def win
@@ -120,12 +121,12 @@ module Codebreaker
 
     def restart
       puts I18n.t(:do_play)
-      user_input == PLAYER_CHOICE ? main_menu : exit
+      user_input == PLAYER_CHOICE ? main_menu : quit
     end
 
     def user_input
       input = gets.chomp.downcase
-      input == COMMANDS[:exit] ? exit : input
+      input == COMMANDS[:exit] ? quit : input
     end
   end
 end

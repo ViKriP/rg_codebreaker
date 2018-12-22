@@ -1,12 +1,5 @@
 # frozen_string_literal: true
 
-#module Codebreaker
-#  class Constants
-#    ROOTDIR = File.expand_path(__dir__)
-#    STATS_DB = ROOTDIR + '/lib/db/stats.yml'
-  #end
-#end
-
 require 'i18n'
 require 'yaml'
 require 'terminal-table'

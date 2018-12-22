@@ -3,7 +3,7 @@
 module Codebreaker
   class Storage
     STATS_DB = './lib/db/stats.yml'
-    
+
     def save(data)
       data_db = load
       data_db.push(data)
@@ -12,20 +12,9 @@ module Codebreaker
     end
 
     def load_stats_table
-      db = data_sort
-      return false if db.size.zero?
+      return false unless data_sort
 
-      headings = ['Rating']
-      rows = []
-      db.first.each_key { |key| headings << key.capitalize }
-      db.each_with_index do |record, position|
-        row = []
-        row << position + 1
-        record.each { |pair| row << pair.last }
-        rows << row
-      end
-
-      table_console('Stats', headings, rows)
+      table_console(data_sort)
     end
 
     def load
@@ -36,11 +25,23 @@ module Codebreaker
 
     def data_sort
       db = load
+      return false if db.size.zero?
+
       db.sort_by! { |x| [x[:attempts_total], x[:attempts_used], x[:hints_used]] }
     end
 
-    def table_console(title, headings, rows)
-      Terminal::Table.new title: title, headings: headings, rows: rows
+    def table_console(data_stats)
+      headings = ['Rating']
+      rows = []
+      data_stats.first.each_key { |key| headings << key.capitalize }
+      data_stats.each_with_index do |record, position|
+        row = []
+        row << position + 1
+        record.each { |pair| row << pair.last }
+        rows << row
+      end
+
+      Terminal::Table.new title: 'Stats', headings: headings, rows: rows
     end
   end
 end
