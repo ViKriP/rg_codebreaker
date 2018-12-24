@@ -2,8 +2,8 @@
 
 module Codebreaker
   module Validation
-    def validate_string(name, min_value, max_value)
-      (!name.empty? && (min_value..max_value).cover?(name.size))
+    def validate_string(name, range_size_string)
+      (!name.empty? && range_size_string.cover?(name.size))
     end
 
     def validate_digit_between?(num, min_value, max_value)

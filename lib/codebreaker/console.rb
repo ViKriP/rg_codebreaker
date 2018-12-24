@@ -17,6 +17,8 @@ module Codebreaker
       main_menu
     end
 
+    private
+
     def main_menu
       puts I18n.t(:main_menu_print)
       loop do
@@ -28,8 +30,6 @@ module Codebreaker
         end
       end
     end
-
-    private
 
     def registration
       puts I18n.t(:what_name)

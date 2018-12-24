@@ -75,7 +75,7 @@ module Codebreaker
         tmp_secret_code_presence.push(tmp_secret_code.at(idx))
       end
 
-      gigit_presence(num_presence, tmp_secret_code_presence, chars_hints)
+      digit_presence(num_presence, tmp_secret_code_presence, chars_hints)
     end
 
     def start_compare(num)
@@ -83,7 +83,7 @@ module Codebreaker
       num.each_char.map(&:to_i)
     end
 
-    def gigit_presence(num_presence, tmp_secret_code_presence, chars_hints)
+    def digit_presence(num_presence, tmp_secret_code_presence, chars_hints)
       num_presence.each_with_index do |digit, _|
         tmp_secret_code_presence.each_with_index do |digit2, index2|
           next unless digit == digit2
