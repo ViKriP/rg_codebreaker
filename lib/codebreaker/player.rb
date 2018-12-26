@@ -7,7 +7,7 @@ module Codebreaker
 
     MIN_SIZE_STRING = 3
     MAX_SIZE_STRING = 20
-    RANGE_SIZE_STRING = (MIN_SIZE_STRING..MAX_SIZE_STRING)
+    RANGE_SIZE_STRING = (MIN_SIZE_STRING..MAX_SIZE_STRING).freeze
 
     def initialize(name)
       @name = name

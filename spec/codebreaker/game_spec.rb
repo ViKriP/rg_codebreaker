@@ -7,7 +7,7 @@ module Codebreaker
     subject(:game) { described_class.new(Difficulty.find('easy').level) }
 
     before do
-      stub_const('Codebreaker::Storage::STATS_DB', './lib/db/test_stats.yml')
+      stub_const('Codebreaker::Storage::STATS_DB', './lib/db/test-stats.yml')
     end
 
     describe '#hint' do
