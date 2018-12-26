@@ -7,17 +7,8 @@ SimpleCov.start do
   minimum_coverage 95
 end
 
-require 'i18n'
 require 'bundler/setup'
-require 'terminal-table'
-require './lib/codebreaker'
-require './lib/codebreaker/validation'
-require './lib/codebreaker/storage'
-require './lib/codebreaker/player'
-require './lib/codebreaker/game'
-require './lib/codebreaker/difficulty'
-require './lib/codebreaker/console'
-require './lib/i18n_config'
+require '././autoloader.rb'
 
 RSpec.configure do |config|
   config.example_status_persistence_file_path = '.rspec_status'
