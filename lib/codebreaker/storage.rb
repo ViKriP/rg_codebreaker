@@ -17,11 +17,11 @@ module Codebreaker
       table_console(data_sort)
     end
 
+    private
+
     def load
       File.exist?(STATS_DB) ? YAML.load_file(STATS_DB) : []
     end
-
-    private
 
     def data_sort
       db = load

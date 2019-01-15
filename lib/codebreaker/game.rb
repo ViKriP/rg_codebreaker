@@ -7,8 +7,7 @@ module Codebreaker
                   :difficulty_name, :attempt_result, :attempts_total, :hints_total,
                   :tmp_secret_code, :guess_won, :guess_loss
 
-    DIGIT_MIN_VALUE = 1
-    DIGIT_MAX_VALUE = 6
+    DIGITS_ALLOWED = (1..6).freeze
     CODE_SIZE = 4
     DIGIT_PLACE = '+'
     DIGIT_PRESENCE = '-'
@@ -21,12 +20,8 @@ module Codebreaker
       @attempts_total = difficulty[:attempts].clone
       @hints = difficulty[:hints]
       @hints_total = difficulty[:hints].clone
-      start_data
-    end
-
-    def start_data
-      @secret_code = [rand(1..6), rand(1..6), rand(1..6), rand(1..6)]
-      @user_hints = @secret_code.clone.shuffle
+      @secret_code = generate_secret_code
+      @user_hints = generate_user_hints
     end
 
     def hint
@@ -37,7 +32,7 @@ module Codebreaker
     end
 
     def guess(num)
-      print @secret_code
+      print @secret_code #del
       @attempts -= 1 if @attempts.positive?
 
       @attempt_result = compare_attempt(num)
@@ -54,10 +49,10 @@ module Codebreaker
       Storage.new.save(result_game)
     end
 
-    def guess_valid(num)
+    def guess_valid?(num)
       num.to_i.instance_of?(Integer) &&
         num.length == CODE_SIZE &&
-        validate_digit_between?(num, DIGIT_MIN_VALUE, DIGIT_MAX_VALUE)
+        validate_digit_between?(num, DIGITS_ALLOWED)
     end
 
     private
@@ -93,6 +88,14 @@ module Codebreaker
         end
       end
       chars_hints
+    end
+
+    def generate_secret_code
+      Array.new(CODE_SIZE) { rand(DIGITS_ALLOWED) }
+    end
+
+    def generate_user_hints
+      @secret_code.clone.shuffle
     end
   end
 end

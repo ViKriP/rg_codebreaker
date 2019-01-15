@@ -70,7 +70,7 @@ module Codebreaker
         guess = options_game
 
         if guess != COMMANDS[:hint]
-          next puts(I18n.t(:wrong_command)) unless @game.guess_valid(guess)
+          next puts(I18n.t(:wrong_command)) unless @game.guess_valid?(guess)
 
           next winning_state(guess)
         end
@@ -96,7 +96,9 @@ module Codebreaker
     def stats
       stats_db = Storage.new
       puts I18n.t(:db_empty) unless stats_db.load_stats_table
+
       puts stats_db.load_stats_table if stats_db.load_stats_table
+
       main_menu
     end
 

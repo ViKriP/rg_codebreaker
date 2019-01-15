@@ -81,8 +81,8 @@ module Codebreaker
 
     describe '#guess_valid()' do
       it 'When guess is valid' do
-        expect(game.guess_valid('1111')).not_to eq(false)
-        expect(game.guess_valid('1111')).not_to eq(nil)
+        expect(game.guess_valid?('1111')).not_to eq(false)
+        expect(game.guess_valid?('1111')).not_to eq(nil)
       end
     end
 

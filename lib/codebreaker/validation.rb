@@ -6,9 +6,9 @@ module Codebreaker
       (!name.empty? && range_size_string.cover?(name.size))
     end
 
-    def validate_digit_between?(num, min_value, max_value)
+    def validate_digit_between?(num, digits_allowed)
       num.each_char do |digit|
-        break unless digit.to_i.between?(min_value, max_value)
+        break unless digits_allowed.include?(digit.to_i)
       end
     end
   end

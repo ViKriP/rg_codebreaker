@@ -14,7 +14,7 @@ module Codebreaker
     end
 
     def valid_name?
-      validate_string(@name, RANGE_SIZE_STRING)
+      validate_string(name, RANGE_SIZE_STRING)
     end
   end
 end
