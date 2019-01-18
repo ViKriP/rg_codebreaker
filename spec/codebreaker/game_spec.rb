@@ -6,10 +6,6 @@ module Codebreaker
   RSpec.describe Game do
     subject(:game) { described_class.new(Difficulty.find('easy').level) }
 
-    before do
-      stub_const('Codebreaker::Storage::STATS_DB', './lib/db/test-stats.yml')
-    end
-
     describe '#hint' do
       it 'When hints are over' do
         game.instance_variable_set(:@hints, 0)
@@ -88,6 +84,14 @@ module Codebreaker
 
     describe '#save_result_game' do
       let(:storage) { Storage.new }
+
+      before do
+        stub_const('Codebreaker::Storage::STATS_DB', './lib/db/test-stats.yml')
+      end
+
+      after do
+        File.delete(Codebreaker::Storage::STATS_DB)
+      end
 
       it 'When saving result' do
         game.save_result_game('Player')

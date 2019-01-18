@@ -32,7 +32,6 @@ module Codebreaker
     end
 
     def guess(num)
-      print @secret_code #del
       @attempts -= 1 if @attempts.positive?
 
       @attempt_result = compare_attempt(num)

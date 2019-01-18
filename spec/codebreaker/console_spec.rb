@@ -4,28 +4,16 @@ require 'spec_helper'
 
 module Codebreaker
   RSpec.describe Console do
-    let(:game) { Game.new(Difficulty.find('easy').level) }
-    let(:player) { Player.new('Player') }
+    let(:current_subject) { described_class.new }
+    let(:player) { instance_double('Player', name: 'Player') }
+    let(:game) { instance_double('Game', hints: 0, level_hints: 0, attempts: 15, secret_code: [1, 1, 1, 1]) }
+    let(:storage) { instance_double('Storage') }
     let(:valid_name) { 'Player' }
     let(:invalid_name) { 'Pl' }
     let(:difficulty_name) { 'easy' }
-    let(:result_game) {
-      { name: 'Player',
-        difficulty: 'easy',
-        attempts_total: 15,
-        attempts_used: 1,
-        hints_total: 2,
-        hints_used: 1 }
-    }.freeze
 
     before do
       allow(subject).to receive(:loop).and_yield
-      stub_const('Codebreaker::Storage::STATS_DB', './lib/db/test__stats.yml')
-      Storage.new.save(result_game)
-    end
-
-    after do
-      File.delete('./lib/db/test__stats.yml')
     end
 
     describe '#start' do
@@ -48,21 +36,9 @@ module Codebreaker
         expect { subject.start }.to output(/#{Regexp.quote(I18n.t(:db_empty))}/).to_stdout
       end
 
-      it 'when the database exist for #stats' do
-        allow(subject).to receive_message_chain(:gets, :chomp).and_return(Console::COMMANDS[:stats], Console::COMMANDS[:start])
-        expect { subject.start }.to output(/Rating/).to_stdout
-      end
-
       it 'receives #rules for same command' do
         allow(subject).to receive_message_chain(:gets, :chomp).and_return(Console::COMMANDS[:rules], Console::COMMANDS[:start])
         expect { subject.start }.to output(/#{Regexp.quote(I18n.t(:rules))}/).to_stdout
-      end
-
-      it 'receives #exit for same command' do
-        allow(subject).to receive(:gets).and_return(Console::COMMANDS[:exit])
-        allow(subject).to receive(:puts)
-        allow(subject).to receive(:exit)
-        expect(subject.start).to eq(nil)
       end
     end
 
@@ -105,35 +81,35 @@ module Codebreaker
         allow(subject).to receive_message_chain(:gets, :chomp).and_return(Console::COMMANDS[:start], valid_name, difficulty_name, Console::COMMANDS[:hint])
         expect { subject.start }.to output(/#{Regexp.quote(I18n.t(:player_used, attempts: 15, hints: 2))}/).to_stdout
       end
+    end
 
-      it 'when hint is ended' do
-        subject.instance_variable_set(:@game, game)
-        subject.game.instance_variable_set(:@hints, 0)
+    describe 'when hint is ended' do
+      before do
+        allow(current_subject).to receive(:loop).and_yield
+      end
 
-        allow(subject).to receive_message_chain(:gets, :chomp).and_return(Console::COMMANDS[:start], valid_name, difficulty_name, Console::COMMANDS[:hint])
-        expect(subject.game.hints).to eq(0)
+      it do
+        current_subject.instance_variable_set(:@game, game)
+        current_subject.instance_variable_set(:@player, player)
+
+        allow(current_subject).to receive_message_chain(:gets, :chomp).and_return(Console::COMMANDS[:hint])
+
+        expect { current_subject.send(:game_state) }.to output(/#{Regexp.quote(I18n.t(:ended_hints))}/).to_stdout
       end
     end
 
-    describe '#winning_state' do
+    describe 'game result' do
       it 'When guess is won' do
         subject.instance_variable_set(:@game, game)
-        subject.instance_variable_set(:@player, player)
+        current_subject.instance_variable_set(:@player, player)
 
-        game_own = subject.instance_variable_get(:@game)
-        subject.game.guess(game_own.instance_variable_get(:@secret_code).join)
-
-        allow(subject).to receive_message_chain(:gets, :chomp).and_return('y', 'y')
+        allow(subject).to receive_message_chain(:gets, :chomp).and_return('n', 'y')
         expect { subject.send(:win) }.to output(/#{Regexp.quote(I18n.t(:win))}/).to_stdout
       end
 
       it 'When guess is loss' do
         subject.instance_variable_set(:@game, game)
-
-        game_own = subject.instance_variable_get(:@game)
-        game_own.instance_variable_set(:@attempts, 1)
-
-        subject.game.guess('6666')
+        current_subject.instance_variable_set(:@player, player)
 
         allow(subject).to receive_message_chain(:gets, :chomp).and_return('y')
         expect { subject.send(:loss) }.to output(/#{Regexp.quote(I18n.t(:loss))}/).to_stdout

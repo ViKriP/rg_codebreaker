@@ -7,7 +7,7 @@ module Codebreaker
     let(:base) { described_class.new }
 
     before do
-      stub_const('Codebreaker::Storage::STATS_DB', './lib/db/test_stats.yml')
+      stub_const('Codebreaker::Storage::STATS_DB', './lib/db/test-stats.yml')
     end
 
     after do

@@ -20,11 +20,12 @@ module Codebreaker
     private
 
     def main_menu
-      puts I18n.t(:main_menu_print)
       loop do
+        puts I18n.t(:main_menu_print)
+
         case user_input
         when COMMANDS[:start] then registration
-        when COMMANDS[:rules] then rules
+        when COMMANDS[:rules] then puts I18n.t(:rules)
         when COMMANDS[:stats] then stats
         else puts I18n.t(:wrong_command)
         end
@@ -88,16 +89,13 @@ module Codebreaker
       loss if @game.guess_loss
     end
 
-    def rules
-      puts I18n.t(:rules)
-      main_menu
-    end
-
     def stats
       stats_db = Storage.new
-      puts I18n.t(:db_empty) unless stats_db.load_stats_table
+      stats_table = stats_db.load_stats_table
 
-      puts stats_db.load_stats_table if stats_db.load_stats_table
+      puts I18n.t(:db_empty) unless stats_table
+
+      puts stats_table if stats_table
 
       main_menu
     end
