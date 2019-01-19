@@ -1,3 +1,10 @@
+PATH
+  remote: .
+  specs:
+    codebreaker (0.1.0)
+      i18n
+      terminal-table
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -23,6 +30,7 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.9.0)
     rainbow (3.0.0)
+    rake (10.5.0)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
@@ -61,13 +69,15 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bundler (~> 1.17)
+  codebreaker!
   fasterer
   i18n
   pry
-  rspec
+  rake (~> 10.0)
+  rspec (~> 3.0)
   rubocop
   simplecov
-  terminal-table
 
 BUNDLED WITH
    1.17.1
