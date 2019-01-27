@@ -44,7 +44,8 @@ module Codebreaker
                       attempts_total: @attempts_total,
                       attempts_used: @attempts_total - @attempts,
                       hints_total: @hints_total,
-                      hints_used: @hints_total - @hints }
+                      hints_used: @hints_total - @hints,
+                      date: Time.now }
       Storage.new.save(result_game)
     end
 
